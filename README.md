@@ -1,7 +1,9 @@
 # FAQ-in-SQL-Interviews
-These are the frequently asked questions in SQL interviews where we can get the same result by using different type of queries.
+**These are the frequently asked questions in SQL interviews where we can get the same result by using different type of queries.**
 
-Create Table Employees 
+---
+
+Create Table Employees
 (EmpID INT Primary Key, 
 Emp_Name Varchar(50), 
 Salary Decimal(10,2), 
@@ -29,9 +31,9 @@ INSERT INTO Employees (EmpID, Emp_Name, Salary, ManagerID) VALUES
 (13,'Mallory',  92000, 4);
 
 
+---
 
-
--- Check the highest salary 
+--**Check the highest salary** 
 
 Select *
 From Employees
@@ -39,14 +41,16 @@ WHERE Salary = (SELECT MAX(Salary) FROM Employees)
 ;
 
 
--- Check highest salary with selective columns
+-- **Check highest salary with selective columns**
 
 Select EmpID, Emp_Name, Salary
 From Employees
 WHERE Salary = (SELECT MAX(Salary) FROM Employees)
 ;
 
--- Check the 2nd Highest Salary
+---
+
+-- **Check the 2nd Highest Salary**
 
 Select TOP 1 *
 From Employees
@@ -55,7 +59,7 @@ ORDER BY Salary DESC
 ;
 
 
--- Check the 2nd Highest Salary with selective columns
+-- **Check the 2nd Highest Salary with selective columns**
 
 Select TOP 1 EmpID, Emp_Name, Salary
 From Employees
@@ -63,8 +67,9 @@ Where Salary <(Select Max(Salary) From Employees)
 ORDER BY Salary DESC
 ;
 
+---
 
--- Check the 3rd highest salary using TOP function
+-- **Check the 3rd highest salary using TOP function**
 
 SELECT TOP 1 *
 FROM Employees
@@ -75,7 +80,9 @@ WHERE Salary < (
 )
 ORDER BY Salary DESC;
 
--- Check the 3rd highest salary using Rank function
+
+
+-- **Check the 3rd highest salary using Rank function**
 
 Select *
 From (Select RANK() Over(Order By Salary DESC) AS Highest_Salary_Position , 
@@ -83,7 +90,9 @@ From (Select RANK() Over(Order By Salary DESC) AS Highest_Salary_Position ,
 Where Highest_Salary_Position  = 3;
 
 
--- Check the 3rd highest salary using Dense_Rank function
+
+
+-- **Check the 3rd highest salary using Dense_Rank function**
 
 Select *
 From (Select DENSE_RANK() Over(Order By Salary DESC) AS Highest_Salary_Position , 
@@ -91,7 +100,8 @@ From (Select DENSE_RANK() Over(Order By Salary DESC) AS Highest_Salary_Position 
 Where Highest_Salary_Position  = 3;
 
 
--- Check the 3rd highest salary using Row_Number function
+
+-- **Check the 3rd highest salary using Row_Number function**
 
 Select *
 From (Select Row_Number() Over(Order By Salary DESC) AS Highest_Salary_Position , 
@@ -99,7 +109,8 @@ From (Select Row_Number() Over(Order By Salary DESC) AS Highest_Salary_Position 
 Where Highest_Salary_Position  = 3;
 
 
--- Check the 3rd highest salary using CTE and double layer of subquery
+
+-- **Check the 3rd highest salary using CTE and double layer of subquery**
 
 WITH CTE_SET AS (
 				SELECT EmpID, Emp_Name, Salary
