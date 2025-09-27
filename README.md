@@ -123,3 +123,44 @@ SELECT *
 FROM CTE_SET 
 WHERE Salary = (SELECT MAX(Salary) FROM CTE_SET)
 ;
+
+---
+
+---- **Align the Hierarchy using LEFT JOIN**
+
+Select E.EmpID AS Employee_ID , E.Emp_Name AS Employee_Name , E.Salary , M.Emp_Name AS Manager_Name, M.Salary 
+From Employees E LEFT JOIN Employees M
+ON E.ManagerID = M.EmpID
+;
+
+---
+
+---- **Check the employee who is getting higher salary than their manager**
+
+Select *
+From Employees
+
+---**(Currently we do not have any employee for this query to be run successfully so I'm adding two employees with higher salary for the better results)**
+
+
+Insert INTO Employees VALUES	
+(14, 'Thomas', 138000, 3),
+(15, 'Tom', 125000, 2)
+;
+
+-- **Let's begin with the requested query now**
+
+Select E.EmpID AS Employee_ID , E.Emp_Name AS Employee_Name , E.Salary AS SALARY , 
+		M.EmpID AS Manager_ID , M.Emp_Name AS Manager_Name , M.Salary AS Manager_Salary ,
+		(e.Salary - m.Salary) AS Variance
+From Employees E LEFT JOIN Employees M
+	ON E.ManagerID = M.EmpID  
+Group By E.EmpID 
+Having Variance > 0;
+
+---**Just realized that we had Kevin earning more than his Manager's salary. However, adding 2 more employees really helped us to extract result with more than 1 rows.** 
+
+**Story of the line - Human eyes can miss the details but not the SQL code while manipulating the data.**
+
+---
+
