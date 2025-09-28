@@ -191,7 +191,5 @@ WHERE E.Salary > M.Salary;
 
 ---**Just realized that we had Kevin earning more than his Manager's salary. However, adding 2 more employees really helped us to extract result with more than 1 row.** 
 
-**Story of the line - Human eyes can miss the details but not the SQL code while manipulating the data.**
-
 ---
 
